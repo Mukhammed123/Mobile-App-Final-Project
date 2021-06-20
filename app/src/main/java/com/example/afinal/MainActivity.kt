@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -48,6 +50,20 @@ class MainActivity : AppCompatActivity() {
         adapter?.setOnClickDetailItem {
             showDetails(it.id.toString(), it.name, it.email)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.aboutFragment -> {val i = Intent(this, AboutActivity::class.java)
+                startActivity(i)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showDetails(id: String, name: String, email: String) {

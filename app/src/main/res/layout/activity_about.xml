@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+    <TextView
+        android:id="@+id/aboutTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="About this project"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aboutTitle"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="50dp"
+        android:text="This is project is done by Mukhammed Musa. The purpose of creating this application is to fulfill one of the requirements. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac maximus ante. Nulla finibus cursus tellus a cursus. Etiam justo risus,
+        cursus in turpis vitae, pellentesque dictum dolor. Donec convallis odio at lectus varius fermentum. Proin malesuada risus mauris. Nulla in euismod mi. Ut auctor leo non fermentum dapibus. Aenean in accumsan leo. Mauris auctor faucibus viverra. Morbi quis sollicitudin urna, sed hendrerit ipsum. In dui sem, aliquam at lectus vitae, aliquam congue augue. Morbi mi velit, efficitur ut lectus eget, laoreet fringilla nulla."
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+
+</RelativeLayout>
