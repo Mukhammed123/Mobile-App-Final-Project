@@ -11,6 +11,7 @@ class StudentAdapter : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>(){
     private var stdList: ArrayList<StudentModel> = ArrayList()
     private var onClickItem: ((StudentModel) -> Unit)? = null
     private var onClickDeleteItem: ((StudentModel) -> Unit)? = null
+    private var onClickDetailItem: ((StudentModel) -> Unit)? = null
 
     fun addItems(items: ArrayList<StudentModel>) {
         this.stdList = items
@@ -25,6 +26,10 @@ class StudentAdapter : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>(){
         this.onClickDeleteItem = callback
     }
 
+    fun setOnClickDetailItem(callback:(StudentModel) -> Unit){
+        this.onClickDetailItem = callback
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = StudentViewHolder (
         LayoutInflater.from(parent.context).inflate(R.layout.card_items_std, parent, false)
     )
@@ -34,6 +39,7 @@ class StudentAdapter : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>(){
         holder.bindView(std)
         holder.itemView.setOnClickListener { onClickItem?.invoke(std) }
         holder.btnDelete.setOnClickListener { onClickDeleteItem?.invoke(std) }
+        holder.btnDetail.setOnClickListener { onClickDetailItem?.invoke(std) }
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +51,7 @@ class StudentAdapter : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>(){
         private var name = view.findViewById<TextView>(R.id.tvName)
         private var email = view.findViewById<TextView>(R.id.tvEmail)
         var btnDelete = view.findViewById<Button>(R.id.btnDelete)
+        var btnDetail = view.findViewById<Button>(R.id.btnDetail)
 
         fun bindView(std: StudentModel) {
             id.text = std.id.toString()

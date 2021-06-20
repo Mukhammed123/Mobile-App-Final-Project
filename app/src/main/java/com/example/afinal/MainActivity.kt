@@ -1,5 +1,6 @@
 package com.example.afinal
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnAdd: Button
     private lateinit var btnView: Button
     private lateinit var btnUpdate: Button
-
     private lateinit var sqliteHelper: SQLiteHelper
     private lateinit var recyclerView: RecyclerView
     private var adapter: StudentAdapter? = null
@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         btnAdd.setOnClickListener { addStudent() }
         btnView.setOnClickListener {getStudents()}
         btnUpdate.setOnClickListener {updateStudent()}
+
         adapter?.setOnClickItem { Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
 
             edName.setText(it.name)
@@ -44,6 +45,17 @@ class MainActivity : AppCompatActivity() {
         adapter?.setOnClickDeleteItem {
             deleteStudent(it.id)
         }
+        adapter?.setOnClickDetailItem {
+            showDetails(it.id.toString(), it.name, it.email)
+        }
+    }
+
+    private fun showDetails(id: String, name: String, email: String) {
+        val i = Intent(this, DetailActivity::class.java)
+        i.putExtra("id", id)
+        i.putExtra("name", name)
+        i.putExtra("email", email)
+        startActivity(i)
     }
 
     private fun getStudents() {
