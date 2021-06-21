@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var edName: EditText
     private lateinit var edEmail: EditText
+    private lateinit var searchText: EditText
+    private lateinit var btnSearch: Button
     private lateinit var btnAdd: Button
     private lateinit var btnView: Button
     private lateinit var btnUpdate: Button
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         btnAdd.setOnClickListener { addStudent() }
         btnView.setOnClickListener {getStudents()}
         btnUpdate.setOnClickListener {updateStudent()}
+        btnSearch.setOnClickListener {getSearchedStudents()}
 
         adapter?.setOnClickItem { Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
 
@@ -59,7 +62,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.aboutFragment -> {val i = Intent(this, AboutActivity::class.java)
+            R.id.aboutFragment -> {
+                val i = Intent(this, AboutActivity::class.java)
+                startActivity(i)
+            }
+            R.id.mapFragment -> {
+                val i = Intent(this, MapsActivity::class.java)
                 startActivity(i)
             }
         }
@@ -76,6 +84,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun getStudents() {
         val stdList = sqliteHelper.getAllStudent()
+        Log.e("pppp", "${stdList.size}")
+
+        adapter?.addItems(stdList)
+    }
+
+    private fun getSearchedStudents() {
+        val query = searchText.text.toString()
+        val stdList = sqliteHelper.searchStudent(query)
         Log.e("pppp", "${stdList.size}")
 
         adapter?.addItems(stdList)
@@ -156,6 +172,8 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         edName = findViewById(R.id.edName)
         edEmail = findViewById(R.id.edEmail)
+        searchText = findViewById(R.id.searchText)
+        btnSearch = findViewById(R.id.searchBtn)
         btnAdd = findViewById(R.id.btnAdd)
         btnView = findViewById(R.id.btnView)
         btnUpdate = findViewById(R.id.btnUpdate)

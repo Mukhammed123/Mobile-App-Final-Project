@@ -79,6 +79,39 @@ class SQLiteHelper(context: Context) :
         return stdList
     }
 
+    fun searchStudent(query: String): ArrayList<StudentModel> {
+        val stdList: ArrayList<StudentModel> = ArrayList()
+        val selectQuery = "SELECT * FROM $TBL_STUDENT WHERE name LIKE ?"
+        val db = this.readableDatabase
+
+        val cursor: Cursor?
+        val array = arrayOf('%' + query + '%')
+        try {
+            cursor = db.rawQuery(selectQuery, array )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return ArrayList()
+        }
+
+        var id: Int
+        var name: String
+        var email: String
+
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex("id"))
+                name = cursor.getString(cursor.getColumnIndex("name"))
+                email = cursor.getString(cursor.getColumnIndex("email"))
+
+                val std = StudentModel(id = id, name = name, email = email)
+                stdList.add(std)
+            }while (cursor.moveToNext())
+        }
+
+        return stdList
+    }
+
     fun updateStudent(std: StudentModel): Int {
         val db = this.writableDatabase
 
